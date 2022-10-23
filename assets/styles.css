@@ -46,9 +46,12 @@ display: block;
     }
   
   .dcc_compon {
-    margin: 0 auto;
-    padding: 5px;
+    border-radius: 5px;
+    margin: 2 auto;
+    padding: 8px;
     width: calc(100%-40px);
+    display: inline-block;
+    
   }
   
   .fix_label {
@@ -261,4 +264,24 @@ display: block;
   
   p {
     margin-top: 0;
+  }
+
+  .boton_buscar{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #ffffff;
+    background-color: #3B9595;
+    ;
+    border-radius: 6px;
+    border: 1px solid #4d74a1;
+  }
+  .boton_buscar:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+  }
+  .divseparador{
+  display: inline-block;
+  width: 75px;
   }

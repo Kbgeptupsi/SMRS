@@ -18,13 +18,15 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.P("Buscar tweets",className='fix_label',style={'color':'black','margin-top':'2px'}),
+            # html.P("Buscar tweets",className='fix_label',style={'color':'black','margin-top':'4px','margin-bottom':'4px'}),
             dcc.Input(
                 id ='textInput',
                 type = 'text',
                 style={'text-aling':'center','color':'black'},
                 className='dcc_compon'
-            )
+            ),
+            html.Div(className='divseparador'),
+            html.Button(' Buscar Tweets ',className='boton_buscar'),
         ],className='create_container2 five columns',style={'margin-bottom':'20px'})
     ],className='row flex-display'),
     
