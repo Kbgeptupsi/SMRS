@@ -11,8 +11,9 @@ app = dash.Dash(__name__)
 
 app.layout = html.Div([
     html.Div([
-        html.H1('Extraccion de Tweets'),
-        html.Img(src='/assets/sf.png')
+        html.H1('SMRS',style={'font-family':'Verdana'}),
+        html.B('  Sistema de monitoreo de redes sociales (twitter)',style={'color':'white','margin-top':'2px','font-family':'Arial'}),
+        html.Img(src='/assets/twlog.png')
     ], className='banner'),
 
     html.Div([

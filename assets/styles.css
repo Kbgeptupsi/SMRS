@@ -7,10 +7,10 @@ body {
     text-align: center;
   }
 .banner {
-height: 75px;
+height: 85px;
 margin: 0px -10px 10px;
-background-color: #00072D;
-border-radius: 2px;
+background-color: #3B9595;
+border-radius: 4px;
 display: block;
 }
 
