@@ -5,7 +5,7 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input,Output
 
-df = ''
+
 
 app = dash.Dash(__name__)
 
