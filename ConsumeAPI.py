@@ -1,25 +1,20 @@
-from os import access
-from textwrap import indent
 import tweepy
 import json
 
 #cadenas de autenticacion
 
-consumer_key = "9ZX27Wd4njCVyDcr1gn0717K5"
+API_KEY="fn4GQZUx1E46gBcSFbX9rXT9y"
+API_SECRET_KEY="LG0Bjwteu9gkeV7pj0zWoPaeF2jtjSSUbuv8XgMeChu2RobVG9"
+BEARER_TOKEN="AAAAAAAAAAAAAAAAAAAAANcPhAEAAAAACH596ukEf9hBWi7rHRbPWDl3LIc%3D7tjKsFca1EXXVyrH72BHfOdCnmJkEL0GY7kiJmLXh4oNhdHORc"
+ACCESS_TOKEN="1442525377352462339-rBKONpUOsw9zyUzPfYaXapEZumLWx1"
+ACCESS_TOKEN_SECRET="KA1uA9sr82hbd5iR02TgtK0wFq0Qizh3urahMdou7ZpYK"
 
-consumer_secret ="1exIzHtQDkOs2qGTXI25syVwVchY1Y1HCiffjjD2JeEkC1PcT6"
+auth = tweepy.OAuthHandler(API_KEY,API_SECRET_KEY)
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-access_token = "AAAAAAAAAAAAAAAAAAAAAFDtgwEAAAAArXjOOddf1kUWrwANWIUwl0Idkn0%3DnSupcOoDXrvlj"
-access_token_secret = "tbIzM7QemfIKLQb00hBX0lPFcjHL0SwJ8fhV7"
-
-
-auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-
-api = tweepy.API(auth, wait_on_rate_limit=True,
-wait_on_rate_limit_notify=True)
+api = tweepy.API(auth)
 
 
 # obtenemos la informacion
-data = api.me()
-print json.dumps(data._json, indent=2)
+data = api.home_timeline
+print (data.__format__)

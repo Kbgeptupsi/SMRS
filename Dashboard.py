@@ -11,8 +11,8 @@ app = dash.Dash(__name__)
 
 app.layout = html.Div([
     html.Div([
-        html.H1('Extraccion de Tweets'),
-        html.Img(src='/assets/sf.png')
+        html.H1('Extraccion de Tweets', style={'color':'hsl(216, 12%, 8%)'}),
+        html.Img(src='/assets/twitterazul-removebg-preview.png')
     ], className='banner'),
 
     html.Div([
@@ -21,7 +21,7 @@ app.layout = html.Div([
             dcc.Input(
                 id ='textInput',
                 type = 'text',
-                style={'text-aling':'center','color':'black'},
+                style={'align-content':'center','color':'black'},
                 className='dcc_compon'
             )
         ],className='create_container2 five columns',style={'margin-bottom':'20px'})
