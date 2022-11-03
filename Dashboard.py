@@ -5,7 +5,7 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input,Output
 
-df = ''
+df = pd.read_csv('Covid19VacunasAgrupadas.csv')
 
 app = dash.Dash(__name__)
 
@@ -23,9 +23,18 @@ app.layout = html.Div([
                 type = 'text',
                 style={'align-content':'center','color':'black'},
                 className='dcc_compon'
+            ),
+            dcc.RadioItems(
+                id ='dosis-radioitems',
+                labelStyle= {'display':'inline-block'},
+                options=[
+                    {'label':'Primera dosis','value':'primera_dosis_cantidad'},
+                ],value= 'primera_dosis_cantidad',
+                style={'text-aling':'center','color':'black'},
+                className='dcc_compon'
             )
         ],className='create_container2 five columns',style={'margin-bottom':'20px'})
-    ],className='row flex-display'),
+    ],className='flex-display'),
     
     html.Div([
         html.Div([
@@ -48,47 +57,44 @@ app.layout = html.Div([
 
 @app.callback(
     Output('bar_graph', component_property='figure'), 
-    [Input('textInput',component_property='value')]
+    [Input('dosis-radioitems',component_property='value')]
 )
 
 def update_graph(value):
-    if value == 'none':
+    if value == 'primera_dosis_cantidad':
         fig = px.bar(
             data_frame= df,
-            x = 'x',
-            y = 'y',
-            title='Grafico de barras'
+            x = 'jurisdiccion_nombre',
+            y = 'primera_dosis_cantidad',
         )
     return fig
 
 @app.callback(
     Output('pie_graph', component_property='figure'), 
-    [Input('textInput',component_property='value')]
+    [Input('dosis-radioitems',component_property='value')]
 )
 
 def update_graph_pie(value):
-    if value == 'none':
+    if value == 'primera_dosis_cantidad':
         fig2 = px.pie(
             data_frame= df,
-            title='Grafico de torta',
-            names='n',
-            values='v',
+            names='jurisdiccion_nombre',
+            values='primera_dosis_cantidad'
             
         )
     return fig2
 
 @app.callback(
     Output('line_graph', component_property='figure'), 
-    [Input('textInput',component_property='value')]
+    [Input('dosis-radioitems',component_property='value')]
 )
 
 def update_graph_pie(value):
-    if value == 'none':
+    if value == 'primera_dosis_cantidad':
         fig3 = px.line(
             data_frame= df,
-            x='x',
-            y='y',
-            title='Grafico lineal'
+            x = 'jurisdiccion_nombre',
+            y = 'primera_dosis_cantidad',
         )
     return fig3
 

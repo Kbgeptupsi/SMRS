@@ -7,19 +7,18 @@
 body{
   margin: 0;
   padding: 0;
-  background:hsl(213, 19%, 18%);
+  background: linear-gradient(to bottom, hsl(212, 27%, 26%), rgb(101, 101, 101));
 }
   
   #title {
     text-align: center;
   }
 .banner {
-height: 75px;
-margin: 0px -10px 10px;
-background:  hsl(25, 97%, 53%);
-border-radius: 2px;
-display: block;
-
+  height: 75px;
+  margin: 0px -10px 10px;
+  background: linear-gradient(to bottom, hsl(262, 36%, 50%), rgb(80, 79, 79));
+  border-radius: 20px;
+  display: block;
 }
 .contenedor{
   margin: 140px auto;
@@ -48,11 +47,11 @@ display: block;
 
   .create_container2 {
     border-radius: 15px;
-    background-color: hsl(260, 5%, 36%);
+    background-color: aliceblue;
     margin: 20px;
     padding: 15px;
     position: relative;
-    box-shadow: 4px 4px 4px 4px lightgrey;
+    box-shadow: 4px 4px 4px 4px rgb(165, 155, 155);
     overflow-y:auto;
     align-content: center;
     opacity: inherit, 0.5;
@@ -66,7 +65,7 @@ display: block;
     margin: 0 auto;
     padding: 5px;
     width: calc(100%-40px);
-    align-: center;
+    align-content: center;
   }
   
   .fix_label {
@@ -77,9 +76,11 @@ display: block;
     padding-bottom: 0px;
     margin-bottom: 0px;
     width: calc(100%-40px);
-    color: hsl(216, 12%, 8%);
+    color: hsl(216, 12%, 8%);   
   }
-  
+  .graficos{
+    background-color: burlywood;
+  }
   .container-display {
     display: flex;
   }
@@ -87,11 +88,16 @@ display: block;
   #header {
     align-items: center;
   }
-  
+  #input{
+    align-items: center;
+  }
   .flex-display {
     display: flex;
   }
-  
+  .flex-container{
+    align-content: flex-start;
+    height: 100%;
+  }
   #mainContainer {
     display: flex;
     flex-direction: row;
