@@ -5,7 +5,7 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input,Output
 
-
+df = pd.read_csv('Covid19VacunasAgrupadas.csv')
 
 app = dash.Dash(__name__)
 
@@ -13,22 +13,29 @@ app.layout = html.Div([
     html.Div([
         html.H1('SMRS',style={'font-family':'Verdana'}),
         html.B('  Sistema de monitoreo de redes sociales (twitter)',style={'color':'white','margin-top':'2px','font-family':'Arial'}),
-        html.Img(src='/assets/twlog.png')
+         html.Img(src='/assets/twlog.png')
     ], className='banner'),
 
     html.Div([
         html.Div([
-            # html.P("Buscar tweets",className='fix_label',style={'color':'black','margin-top':'4px','margin-bottom':'4px'}),
+            #html.P("Buscar tweets",className='fix_label',style={'color':'black','margin-top':'2px'}),
             dcc.Input(
                 id ='textInput',
                 type = 'text',
-                style={'text-aling':'center','color':'black'},
+                style={'align-content':'center','color':'black'},
                 className='dcc_compon'
             ),
-            html.Div(className='divseparador'),
-            html.Button(' Buscar Tweets ',className='boton_buscar'),
+            dcc.RadioItems(
+                id ='dosis-radioitems',
+                labelStyle= {'display':'inline-block'},
+                options=[
+                    {'label':'Primera dosis','value':'buscartweets'},
+                ],value= 'buscartweets',
+                style={'text-aling':'center','color':'black'},
+                className='dcc_compon'
+            )
         ],className='create_container2 five columns',style={'margin-bottom':'20px'})
-    ],className='row flex-display'),
+    ],className='flex-display'),
     
     html.Div([
         html.Div([
@@ -45,55 +52,70 @@ app.layout = html.Div([
             html.H2('Grafico de linea',className='fix_label',style={'color':'black'}),
             dcc.Graph(id='line_graph',figure={})
         ],className='create_container2 five columns'),
+        html.Div([
+            html.H2('Grafico de dispercion',className='fix_label',style={'color':'black'}),
+            dcc.Graph(id='disp_graph',figure={})
+        ],className='create_container2 five columns'),
     ],className='row flex-display'),
 
 ],id='mainContainer',style={'display':'flex','flex-direction':'column'})
 
 @app.callback(
     Output('bar_graph', component_property='figure'), 
-    [Input('textInput',component_property='value')]
+    [Input('dosis-radioitems',component_property='value')]
 )
 
 def update_graph(value):
-    if value == 'none':
+    if value == 'buscartweets':
         fig = px.bar(
             data_frame= df,
-            x = 'x',
-            y = 'y',
-            title='Grafico de barras'
+            x = 'jurisdiccion_nombre',
+            y = 'primera_dosis_cantidad',
         )
     return fig
 
 @app.callback(
     Output('pie_graph', component_property='figure'), 
-    [Input('textInput',component_property='value')]
+    [Input('dosis-radioitems',component_property='value')]
 )
 
 def update_graph_pie(value):
-    if value == 'none':
+    if value == 'buscartweets':
         fig2 = px.pie(
             data_frame= df,
-            title='Grafico de torta',
-            names='n',
-            values='v',
+            names='jurisdiccion_nombre',
+            values='primera_dosis_cantidad'
             
         )
     return fig2
 
 @app.callback(
     Output('line_graph', component_property='figure'), 
-    [Input('textInput',component_property='value')]
+    [Input('dosis-radioitems',component_property='value')]
 )
 
 def update_graph_pie(value):
-    if value == 'none':
+    if value == 'buscartweets':
         fig3 = px.line(
             data_frame= df,
-            x='x',
-            y='y',
-            title='Grafico lineal'
+            x = 'jurisdiccion_nombre',
+            y = 'primera_dosis_cantidad',
         )
     return fig3
+
+@app.callback(
+    Output('disp_graph', component_property='figure'), 
+    [Input('dosis-radioitems',component_property='value')]
+)
+
+def update_graph_pie(value):
+    if value == 'buscartweets':
+        fig4 = px.scatter(
+            data_frame= df,
+            x = 'jurisdiccion_nombre',
+            y = 'primera_dosis_cantidad',
+        )
+    return fig4
 
 if __name__ == ("__main__"):
     app.run_server(port=8051)

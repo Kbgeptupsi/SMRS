@@ -115,3 +115,23 @@ def display_trend(timer):
     fig.update_yaxes(visible=False)
 
     return dcc.Graph(figure=fig, config={"displayModeBar":False})
+
+
+
+
+app.layout = html.Div([
+    html.Div([
+       
+        
+      
+    ], className='banner'),
+
+    html.Div([
+        html.Div([
+            # html.P("Buscar tweets",className='fix_label',style={'color':'black','margin-top':'4px','margin-bottom':'4px'}),
+            dcc.Input(
+                id ='textInput',
+                type = 'text',
+                style={'text-aling':'center','color':'black'},
+                className='dcc_compon'
+            ),
