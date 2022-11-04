@@ -51,6 +51,10 @@ app.layout = html.Div([
             html.H2('Grafico de linea',className='fix_label',style={'color':'black'}),
             dcc.Graph(id='line_graph',figure={})
         ],className='create_container2 five columns'),
+        html.Div([
+            html.H2('Grafico de dispercion',className='fix_label',style={'color':'black'}),
+            dcc.Graph(id='disp_graph',figure={})
+        ],className='create_container2 five columns'),
     ],className='row flex-display'),
 
 ],id='mainContainer',style={'display':'flex','flex-direction':'column'})
@@ -97,6 +101,20 @@ def update_graph_pie(value):
             y = 'primera_dosis_cantidad',
         )
     return fig3
+
+@app.callback(
+    Output('disp_graph', component_property='figure'), 
+    [Input('dosis-radioitems',component_property='value')]
+)
+
+def update_graph_pie(value):
+    if value == 'primera_dosis_cantidad':
+        fig4 = px.scatter(
+            data_frame= df,
+            x = 'jurisdiccion_nombre',
+            y = 'primera_dosis_cantidad',
+        )
+    return fig4
 
 if __name__ == ("__main__"):
     app.run_server(port=8051)
