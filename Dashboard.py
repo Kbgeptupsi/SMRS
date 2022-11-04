@@ -1,6 +1,3 @@
-import colorsys
-from curses import COLOR_BLACK
-import colorama
 import dash
 import dash_core_components as dcc 
 import dash_html_components as html
@@ -9,17 +6,10 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input,Output
 
-df = ''
 
 app = dash.Dash(__name__)
-df = pd.read_csv("df_bow_final.csv")[['N_like','N_comments','Latitude','Longitude','Fecha','Coordenadas','TopPosition']]
-begin = datetime.strptime(df['Fecha'].min(),'%Y-%m-%d')
-print(begin)
-end=datetime.strptime(df['Fecha'].max(),'%Y-%m-%d')
-print(end)
-min_date='2022-06-20'
-start_date='2022-08-01'
-end_date='2022-10-01'
+df = ''
+
 app.layout = html.Div([
     
     html.Div([
@@ -64,33 +54,6 @@ app.layout = html.Div([
             dcc.Graph(id='line_graph',figure={})
         ],className='create_container2 five columns'),
     ],className='row flex-display'),
-    html.Div([
-                dcc.DatePickerRange(
-                    id='my-date-picker-range',
-                    calendar_orientation='horizontal',
-                    day_size=39,
-                    end_date_palceholder_text="return",
-                    with_portal=False,
-                    frint_day_of_week=0,
-                    reopen_calendar_on_clear=True,
-                    is_RTL=False,
-                    clearable=True,
-                    number_of_months_shown=1,
-                    min_date_allowed=min_date,
-                    max_date_allowed=end_date,
-                    start_date=start_date,
-                    end_date=end_date,
-                    minimum_nights=2,
-                    persistence=True,
-                    persisted_props=['start_date'],
-                    persisted_type='session',
-                    updatemode='singledate'
-                ),
-                html.Div([
-                    html.H2("twitter Tracker",className='fixlabel',style={'color':'black'}),
-                    dcc.Graph(id='mymap')
-                ],className='create_container2 five columns'),
-             ],className='row flex-display'),
 ]
 )
 @app.callback(
@@ -135,28 +98,7 @@ def update_graph_pie(value):
             y = 'primera_dosis_cantidad',
         )
     return fig3
-@app.callback(
-     Output('mymap','figure')
-    [Input('my-date-picker-range','start_date'),Input('my-date-picker-range','end_date')]
-)
-def update_map(begin,end):
-    print(type(begin))
-    print(end)
-    df['fecha']=pd.to.datetime(df['fecha'])
-    dff=df[df.fecha>=datetime.strptime(begin,'%Y-%m-%d')]
-    print(df_map.head(10))
-    df_map=dff.groupby(['TopPosition','Latitude','Longitude','Fecha']).sum()
-    df_map['N_post']=dff.groupby(['TopPosition','Latitude','Longitude','Fecha']).count().Coordenadas
-    df_map.reset_index(inplace=True)
-    print(df_map.head(10))
-    px.set_mapbox_access_token()
-    fig=px.scatter_mapbox(df_map,lat='Latitude',lon='Longitude',hover_name='TopPosition',color='N_post',size='N_like',width=800,color_continuous_scale=px.colors.cyclical.IceFire,size_max=35,zoom=12)              
-    fig.update_layaout(
-        plot_bgcolor=COLOR_BLACK['background'],
-        paper_bgcolor=colorama['background'],
-        font_color=colorsys['text']
-    )
-    return fig
+
 
 if __name__ == ("__main__"):
     app.run_server(port=8051)
